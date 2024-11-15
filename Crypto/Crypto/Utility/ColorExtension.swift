@@ -18,6 +18,8 @@ extension UIColor {
     
     //MARK: Background Color
     static let primaryBackgroundColor = UIColor.white
+    static let secondaryBackgroundColor = UIColor.lightGray
+    static let footerBackgroundColor = UIColor.systemGroupedBackground
     
     //MARK: Border Color
     static let borderColor = UIColor.lightGray

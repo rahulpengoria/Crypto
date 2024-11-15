@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		47207C892CE5CEBA0019B3B1 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47207C882CE5CEBA0019B3B1 /* UIViewExtension.swift */; };
+		47A8E5DF2CE78F3F009EFAFF /* StrinExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8E5DE2CE78F3F009EFAFF /* StrinExtension.swift */; };
+		47AFB9382CE73D4A004B82C8 /* FilterFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AFB9372CE73D4A004B82C8 /* FilterFooterView.swift */; };
+		47AFB93A2CE73D93004B82C8 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AFB9392CE73D93004B82C8 /* FilterCell.swift */; };
 		47FF55AD2CE3CA6B00E5B8BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55AC2CE3CA6B00E5B8BB /* AppDelegate.swift */; };
 		47FF55AF2CE3CA6B00E5B8BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55AE2CE3CA6B00E5B8BB /* SceneDelegate.swift */; };
 		47FF55B62CE3CA6D00E5B8BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47FF55B52CE3CA6D00E5B8BB /* Assets.xcassets */; };
@@ -36,6 +39,9 @@
 
 /* Begin PBXFileReference section */
 		47207C882CE5CEBA0019B3B1 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		47A8E5DE2CE78F3F009EFAFF /* StrinExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrinExtension.swift; sourceTree = "<group>"; };
+		47AFB9372CE73D4A004B82C8 /* FilterFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFooterView.swift; sourceTree = "<group>"; };
+		47AFB9392CE73D93004B82C8 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		47FF55A92CE3CA6B00E5B8BB /* Crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FF55AC2CE3CA6B00E5B8BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47FF55AE2CE3CA6B00E5B8BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47AFB9362CE73D38004B82C8 /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				47AFB9372CE73D4A004B82C8 /* FilterFooterView.swift */,
+				47AFB9392CE73D93004B82C8 /* FilterCell.swift */,
+			);
+			path = FooterView;
+			sourceTree = "<group>";
+		};
 		47FF55A02CE3CA6B00E5B8BB = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +137,7 @@
 		47FF55C12CE3DC3800E5B8BB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				47AFB9362CE73D38004B82C8 /* FooterView */,
 				47FF55DD2CE46BA700E5B8BB /* Controller */,
 				47FF55DF2CE46BBA00E5B8BB /* NavigationView */,
 				47FF55DE2CE46BB100E5B8BB /* Cells */,
@@ -135,6 +151,7 @@
 				47FF55C52CE3E31C00E5B8BB /* ColorExtension.swift */,
 				47FF55E12CE4B0D200E5B8BB /* ImageExtension.swift */,
 				47207C882CE5CEBA0019B3B1 /* UIViewExtension.swift */,
+				47A8E5DE2CE78F3F009EFAFF /* StrinExtension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -308,7 +325,10 @@
 				47FF55C92CE3E63D00E5B8BB /* CryptoListViewModel.swift in Sources */,
 				47FF55D92CE4055B00E5B8BB /* CryptoCoinData.swift in Sources */,
 				47FF55CB2CE3EBE400E5B8BB /* CryptoListController.swift in Sources */,
+				47A8E5DF2CE78F3F009EFAFF /* StrinExtension.swift in Sources */,
+				47AFB9382CE73D4A004B82C8 /* FilterFooterView.swift in Sources */,
 				47FF55CE2CE3F44F00E5B8BB /* NetworkManager.swift in Sources */,
+				47AFB93A2CE73D93004B82C8 /* FilterCell.swift in Sources */,
 				47207C892CE5CEBA0019B3B1 /* UIViewExtension.swift in Sources */,
 				47FF55C32CE3DC6B00E5B8BB /* CryptoNavigationView.swift in Sources */,
 				47FF55AD2CE3CA6B00E5B8BB /* AppDelegate.swift in Sources */,

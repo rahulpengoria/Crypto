@@ -22,6 +22,7 @@ protocol CryptoListFilterable {
     var activeFilters: [CryptoListingViewModel.CryptoFilter] { get }
     /// Clears all active filters and updates the list.
     func clearFilter()
+    func applyFilters(_ selectedFilters: Set<CryptoListingViewModel.CryptoFilter>)
 }
 
 /// This protocol allows the view model to handle fetching and searching the list of cryptocurrencies as well as managing active filters
@@ -31,7 +32,6 @@ typealias CryptoListViewModelInput = CryptoListFetchable & CryptoListSearchable 
 protocol CryptoListViewModelOutput {
     var statePublisher: PassthroughSubject<CryptoListingViewModel.ApiState, Never> { get set }
     var loading: PassthroughSubject<Bool, Never> { get set }
-    func toggleFilter(_ filter: CryptoListingViewModel.CryptoFilter)
 }
 
 /// A typealias that combines both the input and output protocols for the `CryptoListingViewModel`.
@@ -52,14 +52,16 @@ final class CryptoListingViewModel: CryptoListViewModel {
         case active
         case new
         case coin
+        case inActive
+        case token
         
         static func ==(lhs: CryptoFilter, rhs: CryptoFilter) -> Bool {
             switch (lhs, rhs) {
-                case (.active, .active):
-                    return true
-                case (.new, .new):
-                    return true
-                case (.coin, .coin):
+                case (.active, .active),
+                    (.new, .new),
+                    (.coin, .coin),
+                    (.inActive, .inActive),
+                    (.token, .token) :
                     return true
                 default:
                     return false
@@ -69,11 +71,15 @@ final class CryptoListingViewModel: CryptoListViewModel {
         var filterText: String {
             switch self {
                 case .active:
-                    return "Active"
+                    return "Active Coins"
                 case .new:
-                    return "New"
+                    return "New Coins"
                 case .coin:
-                    return "Coin"
+                    return "Only Coin"
+                case .inActive:
+                    return "InActive Coins"
+                case .token:
+                    return "Only Token"
             }
         }
     }
@@ -119,6 +125,10 @@ final class CryptoListingViewModel: CryptoListViewModel {
                         return coin.isNew
                     case .coin:
                         return coin.type == .coin
+                    case .token:
+                        return coin.type == .token
+                    case .inActive:
+                        return !coin.isActive
                 }
             }
             
@@ -168,20 +178,10 @@ extension CryptoListingViewModel {
         self.activeFilters.removeAll()
         self.filterCoins()
     }
-}
-
-//MARK: CryptoListViewModelOutput
-extension CryptoListingViewModel {
     
-    func toggleFilter(_ filter: CryptoListingViewModel.CryptoFilter) {
-        if let index = activeFilters.firstIndex(of: filter) {
-            // Remove the filter if it already exists
-            activeFilters.remove(at: index)
-        } else {
-            // Add the filter if it does not exist
-            activeFilters.append(filter)
-        }
+    func applyFilters(_ selectedFilters: Set<CryptoListingViewModel.CryptoFilter>) {
+        activeFilters = Array(selectedFilters)
         filterCoins()
     }
-    
 }
+

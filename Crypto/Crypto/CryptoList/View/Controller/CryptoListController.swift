@@ -25,19 +25,7 @@ final class CryptoListController: UIViewController {
     /// The custom navigation view with a search bar.
     private lazy var navigationView = NavigationTitleView()
     
-    /// A filter button that opens filter options for cryptocurrency data.
-    private lazy var filterButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "tray.circle.fill"), for: .normal)
-        button.tintColor = UIColor.secondaryTextColor
-        button.backgroundColor = UIColor.primaryBackgroundColor
-        button.layer.cornerRadius = 30
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.borderColor.cgColor
-        button.imageView?.contentMode = .scaleAspectFit
-        button.isHidden = true
-        return button
-    }()
+    private lazy var filterFooterView: FilterFooterView = FilterFooterView(frame: .zero)
     
     /// The array of cryptocurrency data items to display, which triggers a reload when updated.
     private var items: [CryptoCoinData] = [] {
@@ -66,13 +54,34 @@ final class CryptoListController: UIViewController {
         viewModel.fetchCrypoList()
     }
     
+    private func addFooterView() {
+        view.addSubview(filterFooterView)
+        filterFooterView.translatesAutoresizingMaskIntoConstraints = false
+        let footerViewTopAnchor = filterFooterView.topAnchor.constraint(equalTo: tableView.bottomAnchor,
+                                                                        constant: 0)
+        
+        let footerViewBottomAnchor = filterFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                                              constant: 0)
+        let footerViewLeftAnchor = filterFooterView.leftAnchor.constraint(equalTo: view.leftAnchor,
+                                                                          constant: 0)
+        let footerViewRightAnchor = filterFooterView.rightAnchor.constraint(equalTo: view.rightAnchor,
+                                                                            constant: 0)
+        let footerViewHeight = filterFooterView.heightAnchor.constraint(equalToConstant: 100)
+        
+        NSLayoutConstraint.activate([footerViewTopAnchor,
+                                     footerViewBottomAnchor,
+                                     footerViewLeftAnchor,
+                                     footerViewRightAnchor,
+                                     footerViewHeight])
+    }
+    
     // MARK: - Setup Methods
     
     /// Configures the view by setting up navigation, table view, and filter button.
     private func setupView() {
         setupNavigation()
         setupTableView()
-        setupFilterButton()
+        addFooterView()
     }
     
     /// Registers the custom table view cell used to display cryptocurrency data.
@@ -93,12 +102,17 @@ final class CryptoListController: UIViewController {
                     case .loaded(let data):
                         self?.loader(show: false)
                         self?.items = data
-                        self?.updateFilterButton()
                     case .loadedwithError(let error):
                         self?.loader(show: false)
                         self?.showErrorAlert(with: error)
                 }
                 
+            }
+            .store(in: &cancellables)
+        
+        filterFooterView.filterUpdates
+            .sink { [weak self] selectedFilters in
+                self?.viewModel.applyFilters(selectedFilters)
             }
             .store(in: &cancellables)
 
@@ -158,53 +172,9 @@ extension CryptoListController {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         tableView.dataSource = self
-    }
-}
-
-// MARK: - Filter Button Setup
-extension CryptoListController {
-    
-    private func setupFilterButton() {
-        filterButton.addTarget(self, action: #selector(showFilterOptions), for: .touchUpInside)
-        view.addSubview(filterButton)
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            filterButton.widthAnchor.constraint(equalToConstant: 60),
-            filterButton.heightAnchor.constraint(equalToConstant: 60),
-            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
-        ])
-    }
-    
-    /// Updates the filter button's visibility based on certain conditions.
-    private func updateFilterButton() {
-        filterButton.isHidden = false
-    }
-    
-    /// Presents filter options in an action sheet, allowing users to toggle filters.
-    @objc private func showFilterOptions() {
-        let alert = UIAlertController(title: "Filter Options", message: "Select filters", preferredStyle: .actionSheet)
-        
-        for filter in CryptoListingViewModel.CryptoFilter.allCases {
-            let activeFilterAction = UIAlertAction(
-                title: filter.filterText + (viewModel.activeFilters.contains(filter) ? " ✓" : ""),
-                style: .default
-            ) { _ in
-                self.viewModel.toggleFilter(filter)
-            }
-            alert.addAction(activeFilterAction)
-        }
-        
-        alert.addAction(UIAlertAction(title: "Clear Filters", style: .destructive) { _ in
-            self.viewModel.clearFilter()
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -252,5 +222,3 @@ extension CryptoListController {
         }
     }
 }
-
-

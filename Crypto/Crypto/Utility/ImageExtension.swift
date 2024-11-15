@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImage {
     
-    static let cryptoCoin = UIImage(systemName: "bitcoinsign.circle.fill")
-    static let cryptoToken = UIImage(systemName: "moonphase.new.moon")
-    static let inActiveCoin = UIImage(systemName: "sun.max.trianglebadge.exclamationmark")
+    static let cryptoCoin = UIImage(named: "Coin")
+    static let cryptoToken = UIImage(named: "Token")
+    static let inActiveCoin = UIImage(named: "InActiveCrypto")
 }

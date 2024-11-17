@@ -14,7 +14,7 @@ final class CryptoListController: UIViewController {
     // MARK: - Properties
     
     /// The view model responsible for providing data and handling business logic.
-    private let viewModel: CryptoListViewModel
+    private let viewModel: CryptoListViewHandler
     
     /// A set to store Combine's cancellable instances, for managing the lifecycle of subscriptions.
     private var cancellables: Set<AnyCancellable> = []
@@ -35,7 +35,7 @@ final class CryptoListController: UIViewController {
     }
     
     // MARK: - Initializers
-    init(viewModel: CryptoListViewModel) {
+    init(viewModel: CryptoListViewHandler) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

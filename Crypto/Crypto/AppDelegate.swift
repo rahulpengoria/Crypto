@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         let service: CryptoCoinFetchable = CryptoListService()
-        let cryptoListViewModel: CryptoListViewModel = CryptoListingViewModel(service: service)
+        let cryptoListViewModel: CryptoListViewHandler = CryptoListingViewModel(service: service)
         let rootController = CryptoListController(viewModel: cryptoListViewModel)
         window?.rootViewController = UINavigationController(rootViewController: rootController)
         window?.makeKeyAndVisible()

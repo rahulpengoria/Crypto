@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         let service: CryptoCoinFetchable = CryptoListService()
-        let cryptoListViewModel: CryptoListViewModel = CryptoListingViewModel(service: service)
+        let cryptoListViewModel: CryptoListViewHandler = CryptoListingViewModel(service: service)
         let conttroller = CryptoListController(viewModel: cryptoListViewModel)
         window?.rootViewController = UINavigationController(rootViewController: conttroller)
         window?.makeKeyAndVisible()

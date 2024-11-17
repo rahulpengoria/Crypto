@@ -7,38 +7,8 @@
 
 import Combine
 
-protocol CryptoListFetchable {
-    /// Fetches the list of cryptocurrencies from the service.
-    func fetchCrypoList()
-}
-
-protocol CryptoListSearchable {
-    /// Searches for cryptocurrencies based on the provided search text.
-    func search(with text: String)
-}
-
-protocol CryptoListFilterable {
-    /// The list of active filters that are applied to the coin list.
-    var activeFilters: [CryptoListingViewModel.CryptoFilter] { get }
-    /// Clears all active filters and updates the list.
-    func clearFilter()
-    func applyFilters(_ selectedFilters: Set<CryptoListingViewModel.CryptoFilter>)
-}
-
-/// This protocol allows the view model to handle fetching and searching the list of cryptocurrencies as well as managing active filters
-typealias CryptoListViewModelInput = CryptoListFetchable & CryptoListSearchable & CryptoListFilterable
-
-/// This protocol allows the view model to provide the filtered list of cryptocurrencies and publish errors when fetching the data fails.
-protocol CryptoListViewModelOutput {
-    var statePublisher: PassthroughSubject<CryptoListingViewModel.ApiState, Never> { get set }
-    var loading: PassthroughSubject<Bool, Never> { get set }
-}
-
-/// A typealias that combines both the input and output protocols for the `CryptoListingViewModel`.
-typealias CryptoListViewModel = CryptoListViewModelInput & CryptoListViewModelOutput
-
 /// This class is used as viewmodel for crypto list controller which is reponsible for managing list
-final class CryptoListingViewModel: CryptoListViewModel {
+final class CryptoListingViewModel: CryptoListViewHandler {
     
     enum ApiState {
         case loading
@@ -82,6 +52,22 @@ final class CryptoListingViewModel: CryptoListViewModel {
                     return "Only Token"
             }
         }
+        
+        var filter: Filter {
+            switch self {
+                case.active:
+                    return ActiveFilter()
+                case .new:
+                    return NewFilter()
+                case .coin:
+                    return TypeFilter(type: .coin)
+                case .inActive:
+                    return InActiveFilter()
+                case .token:
+                    return TypeFilter(type: .token)
+                    
+            }
+        }
     }
     /// A publisher that emits the filtered list of cryptocurrencies.
     var statePublisher = PassthroughSubject<ApiState, Never>()
@@ -115,26 +101,9 @@ final class CryptoListingViewModel: CryptoListViewModel {
     
     /// Filters the list of cryptocurrencies based on active filters and the search text.
     private func filterCoins() {
-        // Combine all conditions into a single predicate function
         let filteredCoins = coins.filter { coin in
-            let isMatch = activeFilters.allSatisfy { filter in
-                switch filter {
-                    case .active:
-                        return coin.isActive
-                    case .new:
-                        return coin.isNew
-                    case .coin:
-                        return coin.type == .coin
-                    case .token:
-                        return coin.type == .token
-                    case .inActive:
-                        return !coin.isActive
-                }
-            }
-            
-            // Check if the coin matches the search text
+            let isMatch = activeFilters.allSatisfy { $0.filter.isMatching(coin: coin) }
             let searchMatch = searchText.isEmpty || coin.name.contains(searchText) || coin.symbol.contains(searchText)
-            
             return isMatch && searchMatch
         }
         statePublisher.send(.loaded(data: filteredCoins))

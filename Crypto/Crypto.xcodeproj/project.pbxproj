@@ -18,7 +18,7 @@
 		47FF55B92CE3CA6D00E5B8BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47FF55B72CE3CA6D00E5B8BB /* LaunchScreen.storyboard */; };
 		47FF55C32CE3DC6B00E5B8BB /* CryptoNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55C22CE3DC6B00E5B8BB /* CryptoNavigationView.swift */; };
 		47FF55C62CE3E31C00E5B8BB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55C52CE3E31C00E5B8BB /* ColorExtension.swift */; };
-		47FF55C92CE3E63D00E5B8BB /* CryptoListViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55C82CE3E63D00E5B8BB /* CryptoListViewHandler.swift */; };
+		47FF55C92CE3E63D00E5B8BB /* CryptoListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55C82CE3E63D00E5B8BB /* CryptoListingViewModel.swift */; };
 		47FF55CB2CE3EBE400E5B8BB /* CryptoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55CA2CE3EBE400E5B8BB /* CryptoListController.swift */; };
 		47FF55CE2CE3F44F00E5B8BB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55CD2CE3F44F00E5B8BB /* NetworkManager.swift */; };
 		47FF55D12CE3FE0600E5B8BB /* CryptoListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FF55D02CE3FE0600E5B8BB /* CryptoListService.swift */; };
@@ -52,7 +52,7 @@
 		47FF55BA2CE3CA6D00E5B8BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47FF55C22CE3DC6B00E5B8BB /* CryptoNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoNavigationView.swift; sourceTree = "<group>"; };
 		47FF55C52CE3E31C00E5B8BB /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		47FF55C82CE3E63D00E5B8BB /* CryptoListViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoListViewHandler.swift; sourceTree = "<group>"; };
+		47FF55C82CE3E63D00E5B8BB /* CryptoListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoListingViewModel.swift; sourceTree = "<group>"; };
 		47FF55CA2CE3EBE400E5B8BB /* CryptoListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoListController.swift; sourceTree = "<group>"; };
 		47FF55CD2CE3F44F00E5B8BB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		47FF55D02CE3FE0600E5B8BB /* CryptoListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoListService.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		47FF55C72CE3E62200E5B8BB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				47FF55C82CE3E63D00E5B8BB /* CryptoListViewHandler.swift */,
+				47FF55C82CE3E63D00E5B8BB /* CryptoListingViewModel.swift */,
 				47D9BA7D2CEA6D2100AE144F /* CryptoViewModelProtocols.swift */,
 			);
 			path = ViewModel;
@@ -325,7 +325,7 @@
 			files = (
 				47FF55D12CE3FE0600E5B8BB /* CryptoListService.swift in Sources */,
 				47FF55C62CE3E31C00E5B8BB /* ColorExtension.swift in Sources */,
-				47FF55C92CE3E63D00E5B8BB /* CryptoListViewHandler.swift in Sources */,
+				47FF55C92CE3E63D00E5B8BB /* CryptoListingViewModel.swift in Sources */,
 				47FF55D92CE4055B00E5B8BB /* CryptoCoinData.swift in Sources */,
 				47FF55CB2CE3EBE400E5B8BB /* CryptoListController.swift in Sources */,
 				47A8E5DF2CE78F3F009EFAFF /* StrinExtension.swift in Sources */,
